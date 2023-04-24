@@ -6,15 +6,17 @@ const handleDomo = (e) => {
     e.preventDefault();
     helper.hideError();
 
-    const name = e.target.querySelector('#domoName').value;
-    const age = e.target.querySelector('#domoAge').value;
+    const nameField = e.target.querySelector('#domoName');
+    const ageField = e.target.querySelector('#domoAge');
 
-    if (!name || !age) {
+    if (!nameField.value || !ageField.value) {
         helper.handleError('All fields are required!');
         return false;
     }
 
-    helper.sendPost(e.target.action, { name, age }, loadDomosFromServer);
+    helper.sendPost(e.target.action, { name: nameField.value, age: ageField.value }, loadDomosFromServer);
+    nameField.value = "";
+    ageField.value = "";
     return false;
 }
 
@@ -31,7 +33,7 @@ const DomoForm = (props) => {
             <input id = "domoName" type = "text" name = "name" placeholder="Domo Name"/>
             <label htmlFor="age">Age: </label>
             <input id="domoAge" type="number" min="0" name="age"/>
-            <input className="makeDomoSubmit" type="submit" value="Name Domo"/>
+            <input className="makeDomoSubmit" type="submit" value="Make Domo"/>
         </form>
     );
 };
