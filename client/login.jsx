@@ -63,7 +63,7 @@ const SignupWindow = (props) => {
     return (
         <form id="signupForm"
             name="signupForm"
-            onSubmit={handleLogin}
+            onSubmit={handleSignup}
             action="/signup"
             method="POST"
             className="mainForm"
@@ -98,7 +98,7 @@ const init = () => {
     });
 
     ReactDOM.render(<LoginWindow />,
-        dcoument.getElementById('content'));
+        document.getElementById('content'));
 }
 
 window.onload = init;
