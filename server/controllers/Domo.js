@@ -1,9 +1,7 @@
 const models = require('../models');
 
 const { Domo } = models;
-const makerPage = async (req, res) => {
-  return res.render('app');
-};
+const makerPage = async (req, res) => res.render('app');
 
 const deleteDomo = async (req, res) => {
   if (!req.body.id) {
@@ -11,19 +9,16 @@ const deleteDomo = async (req, res) => {
   }
   try {
     const deathRowDomo = await Domo.find({ _id: req.body.id }).select('owner').lean().exec();
-    if (JSON.stringify(deathRowDomo[0].owner).replaceAll('"',"")===req.session.account._id) {
+    if (JSON.stringify(deathRowDomo[0].owner).replaceAll('"', '') === req.session.account._id) {
       await Domo.findByIdAndDelete(req.body.id);
-      return res.status(204).json({message: "Deletion successful"});
+      return res.status(204).json({ message: 'Deletion successful' });
     }
-    else {
-      return res.status(403).json({error: "You may only delete your own Domos."});
-    }
-  }
-  catch (err) {
-    return res.status(500).json({error: JSON.stringify(err)});
-  }
 
-}
+    return res.status(403).json({ error: 'You may only delete your own Domos.' });
+  } catch (err) {
+    return res.status(500).json({ error: JSON.stringify(err) });
+  }
+};
 
 const makeDomo = async (req, res) => {
   if (!req.body.name || !req.body.age) {
@@ -65,5 +60,5 @@ module.exports = {
   makerPage,
   makeDomo,
   getDomos,
-  deleteDomo
+  deleteDomo,
 };

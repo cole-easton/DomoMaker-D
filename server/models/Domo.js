@@ -19,7 +19,7 @@ const DomoSchema = new mongoose.Schema({
   gender: {
     type: String,
     required: false,
-    trim: true
+    trim: true,
   },
   owner: {
     type: mongoose.Schema.ObjectId,
@@ -35,7 +35,7 @@ const DomoSchema = new mongoose.Schema({
 DomoSchema.statics.toAPI = (doc) => ({
   name: doc.name,
   age: doc.age,
-  gender: doc.gender
+  gender: doc.gender,
 });
 
 const DomoModel = mongoose.model('Domo', DomoSchema);
