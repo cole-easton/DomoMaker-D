@@ -23,7 +23,12 @@ const sendPost = async (url, data, handler) => {
         body: JSON.stringify(data),
     });
 
-    const result = await response.json();
+    let result = false;
+    try {
+        result = await response.json();
+    } catch (err) {
+        console.log("Error getting JSON from response");
+    }
     document.getElementById('domoMessage').classList.add('hidden');
 
     if (result.redirect) {
@@ -35,8 +40,10 @@ const sendPost = async (url, data, handler) => {
     }
 
     if (handler) {
+        console.log("handler called");
         handler(result);
     }
+
 };
 
 module.exports = {

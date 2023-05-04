@@ -21,10 +21,14 @@ const handleDomo = (e) => {
     else {
         helper.sendPost(e.target.action, { name: nameField.value, age: ageField.value }, loadDomosFromServer);
     }
-    nameField.value = "";
+    nameField.value = ""; 
     ageField.value = "";
     genderField.value = "";
     return false;
+}
+
+const deleteDomo = (id) => {
+    helper.sendPost("/deleteDomo", { id }, loadDomosFromServer);
 }
 
 const DomoForm = (props) => {
@@ -57,9 +61,9 @@ const DomoList = (props) => {
     }
 
     const domoNodes = props.domos.map(domo => {
-        console.log(domo.gender);
         return (
             <div key={domo._id} className="domo">
+                <div class = "delete-domo" onClick={()=>deleteDomo(domo._id)}>×</div>
                 <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
                 <h3 className="domoName">Name: {domo.name}</h3>
                 <h3 className="domoAge"> Age: {domo.age}</h3>
